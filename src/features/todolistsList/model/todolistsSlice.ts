@@ -55,7 +55,7 @@ const slice = createSlice({
   },
 })
 
-const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
+export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
   `${slice.name}/fetchTodolists`,
   (_, thunkAPI) => {
     return thunkTryCatch(thunkAPI, async () => {
@@ -65,7 +65,7 @@ const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
   },
 )
 
-const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
+export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
   `${slice.name}/addTodolist`,
   (title, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
@@ -81,7 +81,7 @@ const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
   },
 )
 
-const removeTodolist = createAppAsyncThunk<{ id: string }, string>(`${slice.name}/removeTodolist`, (id, thunkAPI) => {
+export const removeTodolist = createAppAsyncThunk<{ id: string }, string>(`${slice.name}/removeTodolist`, (id, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   return thunkTryCatch(thunkAPI, async () => {
     dispatch(todolistsActions.changeTodolistEntityStatus({ id, entityStatus: "loading" }))
@@ -95,7 +95,7 @@ const removeTodolist = createAppAsyncThunk<{ id: string }, string>(`${slice.name
   })
 })
 
-const changeTodolistTitle = createAppAsyncThunk<UpdateTodolistTitleArgType, UpdateTodolistTitleArgType>(
+export const changeTodolistTitle = createAppAsyncThunk<UpdateTodolistTitleArgType, UpdateTodolistTitleArgType>(
   `${slice.name}/changeTodolistTitle`,
   (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
@@ -113,7 +113,6 @@ const changeTodolistTitle = createAppAsyncThunk<UpdateTodolistTitleArgType, Upda
 
 export const todolistsReducer = slice.reducer
 export const todolistsActions = slice.actions
-export const todolistsThunks = { fetchTodolists, addTodolist, removeTodolist, changeTodolistTitle }
 export const { selectTodolists } = slice.selectors
 export const todolistsPath = slice.reducerPath
 
