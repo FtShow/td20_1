@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/material"
 import { Menu } from "@mui/icons-material"
-import "./App.css"
 import { ErrorSnackbar } from "common/components"
 import { authThunks, selectIsLoggedIn } from "../features/auth/model/authSlice"
 import { Login } from "../features/auth/ui/login/Login"

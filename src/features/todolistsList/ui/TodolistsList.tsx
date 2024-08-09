@@ -32,14 +32,6 @@ export const TodolistsList = () => {
     dispatch(tasksThunks.addTask({ title, todolistId }))
   }, [])
 
-  const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
-    dispatch(tasksThunks.updateTask({ taskId, domainModel: { status }, todolistId }))
-  }, [])
-
-  const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
-    dispatch(tasksThunks.updateTask({ taskId, domainModel: { title }, todolistId }))
-  }, [])
-
   const changeFilter = useCallback(function (filter: FilterValuesType, id: string) {
     dispatch(todolistsActions.changeTodolistFilter({ id, filter }))
   }, [])
@@ -77,9 +69,9 @@ export const TodolistsList = () => {
                   tasks={allTodolistTasks}
                   changeFilter={changeFilter}
                   addTask={addTask}
-                  changeTaskStatus={changeStatus}
+
                   removeTodolist={removeTodolist}
-                  changeTaskTitle={changeTaskTitle}
+
                   changeTodolistTitle={changeTodolistTitle}
                 />
               </Paper>
