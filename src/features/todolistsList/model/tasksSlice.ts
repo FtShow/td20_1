@@ -77,8 +77,8 @@ export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(`
       const task = res.data.data.item
       return { task }
     } else {
-      handleServerAppError(res.data, dispatch)
-      return rejectWithValue(null)
+      handleServerAppError(res.data, dispatch, false)
+      return rejectWithValue(res.data)
     }
   })
 })

@@ -11,3 +11,13 @@ export type BaseResponse<D = {}> = {
 }
 
 export type ActionForTests<T extends (...args: any) => any> = Omit<ReturnType<T>, "meta">
+
+export type RejectAppError = {
+  error: BaseResponse
+  type: "appError"
+}
+export type RejectCatchError = {
+  error: unknown
+  type: "catchError"
+}
+export type RejectActionError = RejectCatchError | RejectAppError

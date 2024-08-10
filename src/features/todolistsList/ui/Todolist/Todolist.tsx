@@ -27,7 +27,7 @@ export const Todolist = React.memo(function (props: Props) {
     }, [])
 
     const addTaskCb = (title: string) => {
-        dispatch(addTask({title, todolistId: todolist.id}))
+       return  dispatch(addTask({title, todolistId: todolist.id}))
     }
 
 
