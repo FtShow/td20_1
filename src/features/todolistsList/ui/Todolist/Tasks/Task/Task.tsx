@@ -4,10 +4,10 @@ import {Delete} from "@mui/icons-material"
 import {EditableSpan} from "common/components"
 import {TaskStatuses} from "common/enums"
 
-import {useAppDispatch} from "../../../../../common/hooks";
-import {TaskType} from "../../../api/tasksApiTypes";
+import {useAppDispatch} from "../../../../../../common/hooks";
+import {TaskType} from "../../../../api/tasksApiTypes";
 import s from './Task.module.css'
-import {removeTask, updateTask} from "../../../model/tasksSlice";
+import {removeTask, updateTask} from "../../../../model/tasksSlice";
 
 type Props = {
     task: TaskType
