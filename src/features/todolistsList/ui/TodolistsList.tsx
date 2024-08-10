@@ -1,6 +1,5 @@
 import {Grid, Paper} from "@mui/material"
 import {AddItemForm} from "common/components"
-import {TaskStatuses} from "common/enums"
 import {useAppDispatch} from "common/hooks"
 import React, {useCallback, useEffect} from "react"
 import {useSelector} from "react-redux"
@@ -8,7 +7,7 @@ import {Navigate} from "react-router-dom"
 import {selectIsLoggedIn} from "../../auth/model/authSlice"
 import {selectTasks} from "../model/tasksSlice"
 import {Todolist} from "./Todolist/Todolist"
-import {addTodolist, fetchTodolists, FilterValuesType, selectTodolists,} from "../model/todolistsSlice"
+import {addTodolist, fetchTodolists, selectTodolists,} from "../model/todolistsSlice"
 
 export const TodolistsList = () => {
     const todolists = useSelector(selectTodolists)

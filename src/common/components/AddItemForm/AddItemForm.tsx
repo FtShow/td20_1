@@ -1,6 +1,6 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from "react"
-import { IconButton, TextField } from "@mui/material"
-import { AddBox } from "@mui/icons-material"
+import React, {ChangeEvent, KeyboardEvent, useState} from "react"
+import {IconButton, TextField} from "@mui/material"
+import {AddBox} from "@mui/icons-material"
 
 type Props = {
   addItem: (title: string) => void
@@ -41,7 +41,6 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false }: P
         error={!!error}
         value={title}
         onChange={onChangeHandler}
-        onKeyPress={onKeyPressHandler}
         label="Title"
         helperText={error}
       />

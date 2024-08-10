@@ -3,12 +3,12 @@ import {Button, IconButton} from "@mui/material"
 import {AddItemForm, EditableSpan} from "common/components"
 import {TaskStatuses} from "common/enums"
 import {useAppDispatch} from "common/hooks"
-import React, {useCallback, useEffect} from "react"
+import React, {useEffect} from "react"
 
 import {Task} from "./Task/Task"
 import {changeTodolistTitle, removeTodolist, TodolistDomainType, todolistsActions} from "../../model/todolistsSlice";
 import {TaskType} from "../../api/tasksApiTypes";
-import {fetchTasks, addTask} from "../../model/tasksSlice";
+import {addTask, fetchTasks} from "../../model/tasksSlice";
 
 type PropsType = {
     todolist: TodolistDomainType

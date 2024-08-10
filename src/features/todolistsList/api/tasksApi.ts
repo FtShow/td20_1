@@ -1,7 +1,5 @@
-import { BaseResponse } from "common/types"
-import { instance } from "common/instance"
-import { TaskPriorities, TaskStatuses } from "common/enums"
-import { UpdateDomainTaskModelType } from "../model/tasksSlice"
+import {BaseResponse} from "common/types"
+import {instance} from "common/instance"
 import {AddTaskArgType, GetTasksResponse, RemoveTaskArgType, TaskType, UpdateTaskModelType} from "./tasksApiTypes";
 
 export const tasksApi = {
