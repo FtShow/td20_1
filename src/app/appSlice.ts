@@ -31,36 +31,37 @@ const slice = createSlice({
                 state.status = 'succeeded'
             })
             .addMatcher((action): action is PayloadAction<RejectActionError> => {
-                    return isRejected(action) && action.payload
-                }, (state, action: PayloadAction<RejectActionError>) => {
-                    if (action.payload.type === "appError") {
+                return isRejected(action) && action.payload
+            }, (state, action: PayloadAction<RejectActionError>) => {
+                switch (action.payload.type) {
+                    case "appError": {
                         state.error = action.payload.error.messages.length ? action.payload.error.messages[0] : "Some error occurred"
+                    break
                     }
-                    if (action.payload.type === "catchError") {
-                        if (axios.isAxiosError(action.payload)) {
-                            state.error = action.payload.error.response?.data?.message || action.payload?.message || "Some error occurred"
+                    case "catchError": {
+                        if (axios.isAxiosError(action.payload.error)) {
+                            state.error = action.payload.error?.message || "Some error occurred"
                         } else if (action.payload instanceof Error) {
                             state.error = `Native error: ${action.payload.message}`
 
                         } else {
                             state.error = JSON.stringify(action.payload)
                         }
+                        break
                     }
-                )
-                },
-                selectors
-    :
-        {
-            selectError: (state) => state.error,
-                selectStatus
-        :
-            (state) => state.status,
-                selectIsInitialized
-        :
-            (state) => state.isInitialized,
-        }
-    ,
-    })
+                    default: {
+                        state.error = 'ERRRRRR'
+                    }
+
+                }
+            })
+    },
+    selectors: {
+        selectError: (state) => state.error,
+        selectStatus: (state) => state.status,
+        selectIsInitialized: (state) => state.isInitialized,
+    },
+})
 
 export const appReducer = slice.reducer
 export const appActions = slice.actions

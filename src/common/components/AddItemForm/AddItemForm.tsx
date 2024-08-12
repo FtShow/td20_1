@@ -3,7 +3,7 @@ import {IconButton, TextField} from "@mui/material"
 import {AddBox} from "@mui/icons-material"
 import {logDOM} from "@testing-library/react";
 import {unwrapResult} from "@reduxjs/toolkit";
-import {BaseResponse} from "../../types";
+import {BaseResponse, RejectActionError} from "../../types";
 
 type Props = {
   addItem: (title: string) => Promise<any>
@@ -19,7 +19,7 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false }: P
       addItem(title)
           .then(unwrapResult)
           .then(() => setTitle(""))
-          .catch((err: BaseResponse)=>{
+          .catch((err: RejectActionError)=>{
             //setError(err.messages[0])
           })
 

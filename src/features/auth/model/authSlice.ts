@@ -30,9 +30,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${s
         if (res.data.resultCode === ResultCode.Success) {
             return {isLoggedIn: true}
         } else {
-            const isShowAppError = !res.data.fieldsErrors.length
-            handleServerAppError(res.data, dispatch, isShowAppError)
-            return rejectWithValue(res.data)
+            return rejectWithValue({error: res.data, type: 'appError'})
         }
     })
 })
@@ -45,8 +43,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(`${slice.name}
             dispatch(clearTasksAndTodolists())
             return {isLoggedIn: false}
         } else {
-            handleServerAppError(res.data, dispatch)
-            return rejectWithValue(null)
+            return rejectWithValue({error: res.data, type: 'appError'})
         }
     })
 })
@@ -60,7 +57,7 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(
             if (res.data.resultCode === ResultCode.Success) {
                 return {isLoggedIn: true}
             } else {
-                return rejectWithValue(res.data)
+                return rejectWithValue({error: res.data, type: 'appError'})
             }
         }).finally(() => {
             dispatch(appActions.setAppInitialized({isInitialized: true}))

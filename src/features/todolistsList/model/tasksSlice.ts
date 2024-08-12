@@ -77,8 +77,7 @@ export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgType>(`
       const task = res.data.data.item
       return { task }
     } else {
-      handleServerAppError(res.data, dispatch, false)
-      return rejectWithValue(res.data)
+      return rejectWithValue({error: res.data, type: 'appError'})
     }
   })
 })
@@ -92,7 +91,7 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
       const task = state.tasks[arg.todolistId].find((t) => t.id === arg.taskId)
       if (!task) {
         dispatch(appActions.setAppError({ error: "Task not found in the state" }))
-        return rejectWithValue(null)
+        return
       }
 
       const apiModel: UpdateTaskModelType = {
@@ -109,8 +108,7 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
       if (res.data.resultCode === ResultCode.Success) {
         return arg
       } else {
-        handleServerAppError(res.data, dispatch)
-        return rejectWithValue(null)
+        return rejectWithValue({error: res.data, type: 'appError'})
       }
     })
   },
@@ -125,8 +123,7 @@ export const removeTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgTy
       if (res.data.resultCode === ResultCode.Success) {
         return arg
       } else {
-        handleServerAppError(res.data, dispatch)
-        return rejectWithValue(null)
+        return rejectWithValue({error: res.data, type: 'appError'})
       }
     })
   },

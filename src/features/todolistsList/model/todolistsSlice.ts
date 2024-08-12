@@ -1,11 +1,11 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {RequestStatusType} from "app/appSlice"
 import {clearTasksAndTodolists} from "common/actions"
 import {ResultCode} from "common/enums"
 import {createAppAsyncThunk, handleServerAppError, thunkTryCatch} from "common/utils"
 import {todolistsApi,} from "../api/todolistsApi"
 import {TodolistType, UpdateTodolistTitleArgType} from "../api/todolistsApiTypes";
-import {BaseResponse} from "../../../common/types";
+import {BaseResponse, RejectCatchError} from "../../../common/types";
 
 const slice = createSlice({
     name: "todolists",
@@ -70,8 +70,8 @@ export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] },
 export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
     `${slice.name}/addTodolist`,
     async (title, thunkAPI) => {
+        const {dispatch, rejectWithValue} = thunkAPI
         try {
-            const {dispatch, rejectWithValue} = thunkAPI
 
             const res = await todolistsApi.createTodolist(title)
             if (res.data.resultCode === ResultCode.Success) {
@@ -79,8 +79,8 @@ export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, strin
             } else {
                 return rejectWithValue({error: res.data, type: 'appError'})
             }
-        } catch (err) {
-            return rejectWithValue({error: res.data, type: 'catchError'})
+        } catch (error) {
+            return rejectWithValue({error, type: 'catchError'} as RejectCatchError)
         }
 
     }
